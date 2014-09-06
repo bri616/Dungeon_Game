@@ -24,6 +24,10 @@ my_dungeon.add_room(:largecave, "Large Cave", "a large, cavernous cave", {:west 
 my_dungeon.add_room(:fancyroom, "Fancy Room", "a room with very fancy wall decor and treasure chests", {:south => :largecave})
 # puts "*" * 80
 
+# Add some monsters?
+# my_dungeon.add_monster("Orc", :fancyroom)
+
+
 # Start the dungeon, I'm putting the player in the Large Cave for now
 my_dungeon.start(:largecave)
 # puts "*" * 80
@@ -37,30 +41,25 @@ until player_input.downcase == "quit"
   puts "What direction would you like to go?"
   player_input = gets.chomp.downcase
 
-  # If I can't actually go that way, give an error message and send me back
-  # to the beginning of the loop
-
-  # if player_input != "quit" && my_dungeon.this_is_a_possible_exit(player_input)
-  #   my_dungeon.go(player_input.to_sym)
-  # end
-
-  # After a certain number of moves, initialize a monster in the current room!
+  # After a certain number of moves, initialize a monster in another room!
   monster_counter += 1
 
-  puts "*" * 80
-  puts monster_counter
+  if monster_counter % 5 == 0
+    puts "A monster appears!"
+    # Create a monster in a random room
 
-  while monster_counter == 5
-    puts "Oh no! you can't leave quite yet, because a monster is arriving."
-    # Create a monster in the current room
-    # current_room =
-    # my_dungeon.add_monster("Orc",current_room)
+    # get a list of rooms
+
+    # choose a random one
+
+    # add a monster to it
+
   end
 
 
   if player_input != "quit"
     # check to see if it's a possible direction
-    if my_dungeon.this_is_a_possible_exit(player_input)
+    if my_dungeon.can_go?(player_input)
       my_dungeon.go(player_input.to_sym)
     else
       puts "You can't go that way from here, try again!"

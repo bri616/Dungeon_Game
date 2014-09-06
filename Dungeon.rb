@@ -37,7 +37,7 @@ class Dungeon
     find_room_in_dungeon(@player.location).connections[direction]
   end
 
-  def this_is_a_possible_exit(direction)
+  def can_go?(direction)
     # gets a list of the ways you can exit a room
     poss_direction = find_room_in_dungeon(@player.location).connections.keys
     poss_direction.include? direction.to_sym
@@ -81,6 +81,10 @@ class Dungeon
       puts "You are in #{@description}"
       puts "You see exits in the following directions:"
       puts @connections.keys.each {|n| n}
+
+      # if monster_in_room?(@reference)
+      #   puts "There is a monster in here!"
+      # end
     end
   end
 end
