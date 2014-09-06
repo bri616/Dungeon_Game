@@ -33,6 +33,10 @@ class Dungeon
     @rooms.detect { |room| room.reference == reference }
   end
 
+  def find_monster_in_dungeon(reference)
+    @monsters.detect { |monster| monster.location == reference }
+  end
+
   def find_room_in_direction(direction)
     find_room_in_dungeon(@player.location).connections[direction]
   end
@@ -64,6 +68,11 @@ class Dungeon
       @type = type
       @location = location
     end
+
+    def move_to(reference)
+      @location = reference
+    end
+
   end
 
   class Room
@@ -79,12 +88,18 @@ class Dungeon
     def full_description
       puts "#{@name}"
       puts "You are in #{@description}"
+      if @monsters.length > 0
+        puts "Monsters!!! The following monsters are in here:"
+        #puts @monsters.each {}
+      end
       puts "You see exits in the following directions:"
       puts @connections.keys.each {|n| n}
+
 
       # if monster_in_room?(@reference)
       #   puts "There is a monster in here!"
       # end
     end
+
   end
 end

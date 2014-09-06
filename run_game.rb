@@ -25,7 +25,7 @@ my_dungeon.add_room(:fancyroom, "Fancy Room", "a room with very fancy wall decor
 # puts "*" * 80
 
 # Add some monsters?
-# my_dungeon.add_monster("Orc", :fancyroom)
+my_dungeon.add_monster("Orc", :fancyroom)
 
 
 # Start the dungeon, I'm putting the player in the Large Cave for now
@@ -38,29 +38,31 @@ player_input = ""
 monster_counter = 0
 until player_input.downcase == "quit"
 
+  # Maybe there should be a function here that asks for player input
+  # based on the current state of the room?
+  # my_dungeon.ask_for_input(current_location), perhaps?
+
   puts "What direction would you like to go?"
   player_input = gets.chomp.downcase
-
-  # After a certain number of moves, initialize a monster in another room!
-  monster_counter += 1
-
-  if monster_counter % 5 == 0
-    puts "A monster appears!"
-    # Create a monster in a random room
-
-    # get a list of rooms
-
-    # choose a random one
-
-    # add a monster to it
-
-  end
-
 
   if player_input != "quit"
     # check to see if it's a possible direction
     if my_dungeon.can_go?(player_input)
       my_dungeon.go(player_input.to_sym)
+      # After a certain number of moves, initialize a monster somewhere!
+      monster_counter += 1
+
+      if monster_counter % 5 == 0
+        puts "A monster appears!"
+        # Create a monster in a random room
+
+        # get a list of rooms
+
+        # choose a random one
+
+        # add a monster to it
+
+      end
     else
       puts "You can't go that way from here, try again!"
     end
