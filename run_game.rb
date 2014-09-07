@@ -53,14 +53,14 @@ until player_input.downcase == "quit"
       monster_counter += 1
 
       if monster_counter % 5 == 0
-        puts "A monster appears!"
+        puts "Another monster appears somewhere in the dungeon!"
         # Create a monster in a random room
-
         # get a list of rooms
-
+        roomarray = my_dungeon.get_room_list
         # choose a random one
-
+        randroom = roomarray[rand(roomarray.length)]
         # add a monster to it
+        my_dungeon.add_monster("Orc", randroom)
 
       end
     else

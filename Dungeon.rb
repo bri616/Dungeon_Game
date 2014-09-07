@@ -19,14 +19,17 @@ class Dungeon
   def add_room(reference, name, description, connections)
     @rooms << Room.new(reference, name, description, connections)
   end
+  def get_room_list
+    @rooms.collect {|room| room.reference}
+  end
 
   def start(location)
     @player.location = location
-    show_current_description
+    show_current_description(find_monster_in_dungeon(@player.location))
   end
 
-  def show_current_description
-    puts find_room_in_dungeon(@player.location).full_description
+  def show_current_description(monster_reference)
+    puts find_room_in_dungeon(@player.location).full_description(monster_reference)
   end
 
   def find_room_in_dungeon(reference)
@@ -50,7 +53,7 @@ class Dungeon
   def go(direction)
     puts "You go #{direction.to_s}"
     @player.location = find_room_in_direction(direction)
-    show_current_description
+    show_current_description(find_monster_in_dungeon(@player.location))
   end
 
   class Player
@@ -85,20 +88,16 @@ class Dungeon
       @connections = connections
     end
 
-    def full_description
+    def full_description(monster_reference)
       puts "#{@name}"
       puts "You are in #{@description}"
-      if @monsters.length > 0
-        puts "Monsters!!! The following monsters are in here:"
-        #puts @monsters.each {}
-      end
       puts "You see exits in the following directions:"
       puts @connections.keys.each {|n| n}
 
-
-      # if monster_in_room?(@reference)
-      #   puts "There is a monster in here!"
-      # end
+      if monster_reference
+        puts "There is a monster in here!"
+        puts "It is of the type: #{monster_reference.type}"
+      end
     end
 
   end
