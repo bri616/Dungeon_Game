@@ -22,15 +22,9 @@ puts "If you would like to exit, just type 'quit'"
 my_dungeon.add_room(:smallcave, "Small Cave", "a small, claustrophobic cave", {:east => :largecave})
 my_dungeon.add_room(:largecave, "Large Cave", "a large, cavernous cave", {:west => :smallcave, :north => :fancyroom})
 my_dungeon.add_room(:fancyroom, "Fancy Room", "a room with very fancy wall decor and treasure chests", {:south => :largecave})
-# puts "*" * 80
-
-# Add some monsters?
-my_dungeon.add_monster("Orc", :fancyroom)
-
 
 # Start the dungeon, I'm putting the player in the Large Cave for now
 my_dungeon.start(:largecave)
-# puts "*" * 80
 
 # Ask the player which direction they would like to move in
 # Allow them to say "quit" in order to quit
@@ -52,16 +46,8 @@ until player_input.downcase == "quit"
       # After a certain number of moves, initialize a monster somewhere!
       monster_counter += 1
 
-      if monster_counter % 5 == 0
-        puts "Another monster appears somewhere in the dungeon!"
-        # Create a monster in a random room
-        # get a list of rooms
-        roomarray = my_dungeon.get_room_list
-        # choose a random one
-        randroom = roomarray[rand(roomarray.length)]
-        # add a monster to it
-        my_dungeon.add_monster("Orc", randroom)
-
+      if monster_counter % 2 == 0
+        my_dungeon.add_random_monster
       end
     else
       puts "You can't go that way from here, try again!"

@@ -1,5 +1,5 @@
 class Dungeon
-  attr_accessor :player
+  attr_accessor :player, :monster_types, :monsters
 
   # Use the Struct class for Player and Room for now
   # I commented out the original code below
@@ -10,6 +10,14 @@ class Dungeon
     @player = Player.new(player_name)
     @rooms = []
     @monsters = []
+    @monster_types = ["Orc","Dragon","Cat","Slime"]
+  end
+
+  def add_random_monster
+    random_type = @monster_types[rand(@monster_types.length)]
+    random_room = @rooms[rand(@rooms.length)]
+    puts "A #{random_type} appears in #{random_room.name}"
+    add_monster(random_type,random_room.reference)
   end
 
   def add_monster(type, location)
@@ -19,6 +27,7 @@ class Dungeon
   def add_room(reference, name, description, connections)
     @rooms << Room.new(reference, name, description, connections)
   end
+
   def get_room_list
     @rooms.collect {|room| room.reference}
   end
